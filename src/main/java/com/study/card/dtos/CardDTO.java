@@ -12,7 +12,7 @@ public class CardDTO {
     private String name;
     private String theme;
     private String text;
-    private LocalDate startDate;
+    //private LocalDate startDate; a data é definida automaticamente
     private LocalDate endDate;
     private Status status;
 
