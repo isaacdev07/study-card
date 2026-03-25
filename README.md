@@ -52,13 +52,13 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 
 ```bash
 # 1. Clone este repositório
-$ git clone [https://github.com/isaacdev07/study-card-backend.git](https://github.com/isaacdev07/study-card-backend.git)
+$ git clone [https://github.com/isaacdev07/study-card.git](https://github.com/isaacdev07/study-card.git)
 
 # 2. Acesse a pasta do projeto no seu terminal
-$ cd study-card-backend
+$ cd study-card
 
 # 3. Configure o banco de dados
-#    - Crie um banco de dados no seu MySQL chamado 'study_card_db'.
+#    - Crie um banco de dados no seu MySQL chamado 'cards'.
 #    - Configure o arquivo 'application.properties' (em src/main/resources) com a URL do banco, usuário e senha.
 
 # 4. Execute a aplicação
