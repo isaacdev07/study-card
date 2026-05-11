@@ -104,4 +104,37 @@ public class CardSevice {
 
         return cardRepository.save(card);
     }
+
+    // cancelar card (soft delete) 
+    public Card cancelCard(Long id) {
+        Card card = cardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Card não encontrado!"));
+
+        User userLogado = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!card.getUser().getId().equals(userLogado.getId())) {
+            throw new RuntimeException("Acesso negado: Você não é o dono deste card!");
+        }
+
+        card.setStatus(Status.CANCELADO);
+        return cardRepository.save(card);
+    }
+
+    // deletar card (hard delete) 
+    public void deleteCard(Long id) {
+        Card card = cardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Card não encontrado!"));
+
+        User userLogado = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (!card.getUser().getId().equals(userLogado.getId())) {
+            throw new RuntimeException("Acesso negado: Você não pode excluir um card que não te pertence!");
+        }
+
+        if (card.getStatus() == Status.CANCELADO || card.getStatus() == Status.CONCLUIDO) {
+            cardRepository.delete(card);
+        } else {
+            throw new RuntimeException("Operação não permitida: Só é possível excluir cards que estejam concluídos ou cancelados.");
+        }
+    }
 }
