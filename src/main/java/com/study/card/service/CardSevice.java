@@ -137,4 +137,28 @@ public class CardSevice {
             throw new RuntimeException("Operação não permitida: Só é possível excluir cards que estejam concluídos ou cancelados.");
         }
     }
+
+    // reativar card
+    public Card reactivateCard(Long id) {
+        Card card = cardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Card não encontrado!"));
+
+        User userLogado = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (!card.getUser().getId().equals(userLogado.getId())) {
+            throw new RuntimeException("Acesso negado: Você não é o dono deste card!");
+        }
+
+        // valida a data antes
+        LocalDate today = LocalDate.now();
+
+        if (card.getEndDate().isBefore(today)) {
+            // Se a data limite já passou, ele volta como EXPIRADO
+            card.setStatus(Status.EXPIRADO);
+        } else {
+            // Se ainda está no prazo, volta como PENDENTE
+            card.setStatus(Status.PENDENTE);
+        }
+
+        return cardRepository.save(card);
+    }
 }
