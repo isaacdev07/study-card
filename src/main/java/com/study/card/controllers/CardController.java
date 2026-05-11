@@ -13,6 +13,7 @@ import com.study.card.dtos.UpdateCardDTO;
 import com.study.card.model.Card;
 import com.study.card.service.CardSevice;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,6 +59,20 @@ public class CardController {
     public ResponseEntity<Card> updateCard(@PathVariable Long id, @RequestBody UpdateCardDTO data) {
         Card updatedCard = cardSevice.updateCard(id, data);
         return ResponseEntity.ok(updatedCard);
+    }
+
+    // cancelar card
+    @PatchMapping("/{id}/cancelar")
+    public ResponseEntity<Card> cancelCard(@PathVariable Long id) {
+        Card canceledCard = cardSevice.cancelCard(id);
+        return ResponseEntity.ok(canceledCard);
+    }
+
+    // excluir card
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCard(@PathVariable Long id) {
+        cardSevice.deleteCard(id);
+        return ResponseEntity.noContent().build(); // Retorna 204 No Content (sucesso sem corpo)
     }
     
 }
