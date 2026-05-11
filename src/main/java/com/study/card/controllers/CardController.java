@@ -74,5 +74,12 @@ public class CardController {
         cardSevice.deleteCard(id);
         return ResponseEntity.noContent().build(); // Retorna 204 No Content (sucesso sem corpo)
     }
+
+    // reativar card
+    @PatchMapping("/{id}/reativar")
+    public ResponseEntity<Card> reactivateCard(@PathVariable Long id) {
+        Card card = cardSevice.reactivateCard(id);
+        return ResponseEntity.ok(card);
+    }
     
 }
