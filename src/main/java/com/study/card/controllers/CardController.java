@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.study.card.dtos.CardDTO;
+import com.study.card.dtos.UpdateCardDTO;
 import com.study.card.model.Card;
 import com.study.card.service.CardSevice;
 
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
@@ -49,6 +51,13 @@ public class CardController {
         
         // Retorna a lista de cards com o status 200 OK
         return ResponseEntity.ok(cards);
+    }
+
+    // atualizar card
+    @PutMapping("/{id}")
+    public ResponseEntity<Card> updateCard(@PathVariable Long id, @RequestBody UpdateCardDTO data) {
+        Card updatedCard = cardSevice.updateCard(id, data);
+        return ResponseEntity.ok(updatedCard);
     }
     
 }
