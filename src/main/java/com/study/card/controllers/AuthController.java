@@ -41,13 +41,11 @@ public class AuthController {
             // se tiver tudo certo, gera o token
             String token = tokenService.generateToken(user);
             
-            // devolve o token para o usuario
-            return ResponseEntity.ok(new LoginResponseDTO(token));
+            // devolve o token e o nome para o usuario (MUDANÇA AQUI 👇)
+            return ResponseEntity.ok(new LoginResponseDTO(token, user.getName()));
         } else {
             // se tiver errado retorna erro
             throw new RuntimeException(HttpStatus.UNAUTHORIZED.toString() + " - Credenciais inválidas!");
         }
     }
-} 
-    
-
+}
