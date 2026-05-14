@@ -31,3 +31,9 @@ build/
 
 ### VS Code ###
 .vscode/
+
+# Ignorar pasta de compilados da IDE
+bin/
+
+# Ignorar arquivo de configurações e senhas
+src/main/resources/application.properties
